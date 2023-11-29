@@ -1,6 +1,9 @@
 package constant;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import menu.error.ErrorCode;
 
 public enum MenuCategory {
     JAPANESE("일본", List.of("규동", "우동", "미소시루", "스시", "가츠동", "오니기리", "하이라이스", "라멘", "오코노미야끼")),
@@ -12,8 +15,26 @@ public enum MenuCategory {
     private String category;
     private List<String> menu;
 
+    public static void validateExist(String menu) {
+        Arrays.stream(values())
+                .flatMap(category ->
+                    category.getMenu().stream())
+                .filter(m -> m.equals(menu))
+                .findAny()
+                .orElseThrow(() -> ErrorCode.INVALID_MENU_INPUT.getException());
+    }
+
     private MenuCategory(String category, List<String> menu) {
         this.category = category;
         this.menu = menu;
     }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public List<String> getMenu() {
+        return menu;
+    }
 }
+

@@ -1,5 +1,6 @@
 package menu.domain;
 
+import constant.MenuCategory;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,15 +13,25 @@ public class DislikeMenu {
     private List<String> names;
 
     public DislikeMenu(List<String> names) {
+        validateExistMenu(names);
         validateLength(names);
         validateDuplication(names);
         this.names = names;
     }
 
+    private void validateExistMenu(List<String> names) {
+        for (String name : names) {
+            MenuCategory.validateExist(name);
+        }
+    }
+
     private void validateDuplication(List<String> names) {
         Set<String> nameChecker = new HashSet<>();
-        if (nameChecker.contains(names)) {
-            throw ErrorCode.DUPLICATE_DISLIKE_MENU_NAME.getException();
+        for (String name : names) {
+            if (nameChecker.contains(names)) {
+                throw ErrorCode.DUPLICATE_DISLIKE_MENU_NAME.getException();
+            }
+            nameChecker.add(name);
         }
     }
 
