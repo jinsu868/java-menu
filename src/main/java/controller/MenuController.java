@@ -1,11 +1,15 @@
 package controller;
 
+import constant.MenuCategory;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import menu.domain.Coach;
 import menu.domain.DislikeMenu;
 import menu.view.InputView;
 import menu.view.OutputView;
+import util.RecommendCategoryGenerator;
 
 public class MenuController {
     private final InputView inputView;
@@ -20,6 +24,28 @@ public class MenuController {
         outputView.printIntroMessage();
         List<Coach> coaches = getCoaches();
         setDislikeMenu(coaches);
+        getRecommendCategories();
+    }
+
+    private List<String> getRecommendCategories() {
+        int recommendCount = 0;
+        List<String> categories = new ArrayList<>();
+        Map<String, Integer> categoryCounter = new HashMap<>();
+        while (recommendCount < 5) {
+            String category = RecommendCategoryGenerator.generate();
+            if (categoryCounter.containsKey(category) && categoryCounter.get(category) >= 2) {
+                continue;
+            }
+            if (categoryCounter.containsKey(category)) {
+                categoryCounter.put(category, categoryCounter.get(category) + 1);
+                categories.add(category);
+                continue;
+            }
+            categoryCounter.put(category, 1);
+            recommendCount++;
+            categories.add(category);
+        }
+        return categories;
     }
 
     private List<Coach> getCoaches() {
