@@ -20,6 +20,10 @@ public class Coach {
         return name;
     }
 
+    public boolean isDislikeMenu(String menu) {
+        return dislikeMenu.contains(menu);
+    }
+
     private void initDislikeMenu() {
         dislikeMenu = new DislikeMenu(new ArrayList<>());
     }

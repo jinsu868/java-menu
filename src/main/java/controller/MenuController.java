@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import menu.domain.Coach;
 import menu.domain.DislikeMenu;
+import menu.domain.Recommend;
 import menu.view.InputView;
 import menu.view.OutputView;
 import util.RecommendCategoryGenerator;
@@ -24,7 +25,9 @@ public class MenuController {
         outputView.printIntroMessage();
         List<Coach> coaches = getCoaches();
         setDislikeMenu(coaches);
-        getRecommendCategories();
+        List<String> recommendCategories = getRecommendCategories();
+        Recommend recommend = new Recommend(recommendCategories);
+
     }
 
     private List<String> getRecommendCategories() {
@@ -39,6 +42,7 @@ public class MenuController {
             if (categoryCounter.containsKey(category)) {
                 categoryCounter.put(category, categoryCounter.get(category) + 1);
                 categories.add(category);
+                recommendCount++;
                 continue;
             }
             categoryCounter.put(category, 1);

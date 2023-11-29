@@ -19,6 +19,13 @@ public class DislikeMenu {
         this.names = names;
     }
 
+    public boolean contains(String name) {
+        if (names.contains(name)) {
+            return true;
+        }
+        return false;
+    }
+
     private void validateExistMenu(List<String> names) {
         for (String name : names) {
             MenuCategory.validateExist(name);

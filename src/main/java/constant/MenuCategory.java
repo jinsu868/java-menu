@@ -38,6 +38,14 @@ public enum MenuCategory {
                 .orElseThrow(() -> new IllegalStateException());
     }
 
+    public static List<String> getMenuByCategory(String category) {
+        return Arrays.stream(values())
+                .filter(menuCategory -> menuCategory.getCategory().equals(category))
+                .findFirst()
+                .map(menuCategory -> menuCategory.getMenu())
+                .orElseThrow(() -> new IllegalStateException());
+    }
+
     private MenuCategory(int id, String category, List<String> menu) {
         this.id = id;
         this.category = category;
