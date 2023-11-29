@@ -1,5 +1,6 @@
 package controller;
 
+import constant.MenuConst;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +15,7 @@ import util.RecommendCategoryGenerator;
 public class MenuController {
     private final InputView inputView;
     private final OutputView outputView;
+
 
     public MenuController(InputView inputView, OutputView outputView) {
         this.inputView = inputView;
@@ -42,9 +44,10 @@ public class MenuController {
         int recommendCount = 0;
         List<String> categories = new ArrayList<>();
         Map<String, Integer> categoryCounter = new HashMap<>();
-        while (recommendCount < 5) {
+        while (recommendCount < MenuConst.MENU_RECOMMEND_SIZE) {
             String category = RecommendCategoryGenerator.generate();
-            if (categoryCounter.containsKey(category) && categoryCounter.get(category) >= 2) {
+            if (categoryCounter.containsKey(category) &&
+                    categoryCounter.get(category) >= MenuConst.CATEGORY_DUPLICATE_PERMITTED_SIZE) {
                 continue;
             }
             if (categoryCounter.containsKey(category)) {

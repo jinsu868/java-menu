@@ -1,4 +1,4 @@
-package constant;
+package menu.domain;
 
 import java.util.Arrays;
 import java.util.Collection;
