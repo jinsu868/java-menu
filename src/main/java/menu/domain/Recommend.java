@@ -19,12 +19,16 @@ public class Recommend {
             String category = categories.get(recommendCount);
             List<String> menus = MenuCategory.getMenuByCategory(category);
             String menu = Randoms.shuffle(menus).get(0);
-            if (recommendMenu.contains(menu) || coach.isDislikeMenu(menu)) {
+            if (isAbleToAddMenu(coach, recommendMenu, menu)) {
                 continue;
             }
             recommendCount++;
             recommendMenu.add(menu);
         }
         return recommendMenu;
+    }
+
+    private boolean isAbleToAddMenu(Coach coach, List<String> recommendMenu, String menu) {
+        return recommendMenu.contains(menu) || coach.isDislikeMenu(menu);
     }
 }

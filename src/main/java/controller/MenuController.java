@@ -1,6 +1,5 @@
 package controller;
 
-import constant.MenuCategory;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,13 +25,16 @@ public class MenuController {
         List<Coach> coaches = getCoaches();
         setDislikeMenu(coaches);
         recommendMenus(coaches);
+        outputView.printRecommendResultMessage();
     }
 
     private void recommendMenus(List<Coach> coaches) {
+        outputView.printResultIntroMessage();
+        List<String> recommendCategories = getRecommendCategories();
         for (Coach coach : coaches) {
-            List<String> recommendCategories = getRecommendCategories();
             Recommend recommend = new Recommend(recommendCategories);
             List<String> menus = recommend.recommendMenu(coach);
+            outputView.printRecommendResult(menus, coach.getName());
         }
     }
 
@@ -55,6 +57,7 @@ public class MenuController {
             recommendCount++;
             categories.add(category);
         }
+        outputView.printResultCategoriesMessage(categories);
         return categories;
     }
 
