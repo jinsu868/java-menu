@@ -25,9 +25,15 @@ public class MenuController {
         outputView.printIntroMessage();
         List<Coach> coaches = getCoaches();
         setDislikeMenu(coaches);
-        List<String> recommendCategories = getRecommendCategories();
-        Recommend recommend = new Recommend(recommendCategories);
+        recommendMenus(coaches);
+    }
 
+    private void recommendMenus(List<Coach> coaches) {
+        for (Coach coach : coaches) {
+            List<String> recommendCategories = getRecommendCategories();
+            Recommend recommend = new Recommend(recommendCategories);
+            List<String> menus = recommend.recommendMenu(coach);
+        }
     }
 
     private List<String> getRecommendCategories() {
