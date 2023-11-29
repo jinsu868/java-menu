@@ -1,6 +1,7 @@
 package menu.domain;
 
 import camp.nextstep.edu.missionutils.Randoms;
+import constant.MenuConst;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class Recommend {
     public List<String> recommendMenu(Coach coach) {
         List<String> recommendMenu = new ArrayList<>();
         int recommendCount = 0;
-        while (recommendCount < 5) {
+        while (recommendCount < MenuConst.MENU_RECOMMEND_SIZE) {
             String category = categories.get(recommendCount);
             List<String> menus = MenuCategory.getMenuByCategory(category);
             String menu = Randoms.shuffle(menus).get(0);
