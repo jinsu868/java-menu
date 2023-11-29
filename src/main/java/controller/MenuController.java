@@ -18,27 +18,33 @@ public class MenuController {
 
     public void run() {
         outputView.printIntroMessage();
-        List<String> coachNames = getCoachNames();
-        List<Coach> coaches = getCoaches(coachNames);
+        List<Coach> coaches = getCoaches();
+        setDislikeMenu(coaches);
     }
 
-    private List<String> getCoachNames() {
+    private List<Coach> getCoaches() {
         while (true) {
             try {
-                return inputView.readCoaches();
+                List<String> coachNames = inputView.readCoaches();
+                return convertCoaches(coachNames);
             } catch (IllegalArgumentException e) {
                 outputView.printErrorMessage(e.getMessage());
             }
         }
     }
 
-    private List<Coach> getCoaches(List<String> coachNames) {
+    private List<Coach> convertCoaches(List<String> coachNames) {
         List<Coach> coaches = new ArrayList<>();
         for (String name : coachNames) {
-            DislikeMenu dislikeMenu = getDislikeMenu(name);
-            coaches.add(new Coach(name, dislikeMenu));
+            coaches.add(new Coach(name));
         }
         return coaches;
+    }
+
+    private void setDislikeMenu(List<Coach> coaches) {
+        for (Coach coach : coaches) {
+            coach.updateDislikeMenu(getDislikeMenu(coach.getName()));
+        }
     }
 
     private DislikeMenu getDislikeMenu(String coachName) {
